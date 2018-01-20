@@ -225,8 +225,8 @@ textarea {
 
 video {
   /*display: none;*/
-  width: 0;
-  height: 0;
+  width: 10px;
+  height: 10px;
   background: #222;
   margin: 0 0 20px 0;
   /*width: 100%;*/
