@@ -10,14 +10,58 @@
 
 var errorElement = document.querySelector('#errorMsg');
 var video = document.querySelector('video');
+var canvas, context;
+var draw_timeout;
 
 ///////////////
 var audioSelect = document.querySelector('select#audioSource');
 var videoSelect = document.querySelector('select#videoSource');
 
+document.addEventListener('DOMContentLoaded', function(){
+    canvas = document.getElementById('canvas_reader');
+    context = canvas.getContext('2d');
+
+    // var cw = Math.floor(canvas.clientWidth / 100);
+    // var ch = Math.floor(canvas.clientHeight / 100);
+    var cw = 1000;
+    var ch = 1000;
+    canvas.width = cw;
+    canvas.height = ch;
+
+
+
+    video.addEventListener('play', function(){
+        draw(this,context,cw,ch);
+    },false);
+
+},false);
+
+function draw(v,c,w,h) {
+    if(v.paused || v.ended) return false;
+    c.drawImage(v,0,0,w,h);
+    c.beginPath();
+    c.moveTo(375, 1000);
+    c.lineTo(375, 550);
+    c.lineTo(625, 550);
+    c.lineTo(625, 1000);
+    c.lineWidth = 5;
+    c.stroke();
+    // c.fillStyle = "red";
+    // c.fillRect(10, 10, 100, 50);
+    draw_timeout = setTimeout(draw,20,v,c,w,h);
+}
+
+function stop_draw(){
+  clearInterval(draw_timeout)
+}
+
+function restart_draw(){
+  draw(video,context,1000,1000);
+}
+
 navigator.mediaDevices.enumerateDevices()
   .then(gotDevices).then(getStream).catch(handleError);
-  
+
 audioSelect.onchange = getStream;
 videoSelect.onchange = getStream;
 //////////////
@@ -70,6 +114,8 @@ function getStream() {
   navigator.mediaDevices.getUserMedia(constraints).
     then(handleSuccess).catch(handleError);
 }
+
+
 
 
 ///////////////////////////

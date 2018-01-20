@@ -224,9 +224,10 @@ textarea {
 }
 
 video {
+  display: none;
   background: #222;
   margin: 0 0 20px 0;
-  width: 100%;
+  /*width: 100%;*/
 }
 
 @media screen and (max-width: 650px) {
@@ -256,3 +257,16 @@ video {
 }
 
 
+#canvas_reader {
+  width: 640px;
+  height: 480px;
+  /*width: 100%;*/
+    /*position: absolute;*/
+    /*border: 1px solid black;*/
+/*    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;*/
+/*    width: 50%;
+    height: 50%;*/
+}
