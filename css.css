@@ -225,10 +225,10 @@ textarea {
 
 video {
   /*display: none;*/
-  visibility: hidden;
-  position: fixed;
-  top:0;
-  left: 0;
+  z-index: -1;
+  position: absolute;
+  top:50%;
+  left: 50%;
   width: 10px;
   height: 10px;
   background: #222;
