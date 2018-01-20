@@ -258,6 +258,77 @@ video {
   }
 }
 
+input[name=reader_interval]{
+  position: relative;
+    color: red;
+
+}
+#label_interval::before{
+  content: "Reading Speed (miliseconds)";
+  font-size: 14px;
+  position: absolute;
+
+}
+
+.all_results{
+  display: inline-block;
+}
+#red_result{
+  position: relative;
+}
+#green_result{
+  position: relative;
+}
+#blue_result{
+  position: relative;
+}
+#alpha_result{
+  position: relative;
+}
+#red_result:before{
+  content: '';
+  left:-15px;
+  width: 10px;
+  height: 10px;
+  position: absolute;
+  background: red;
+}
+#green_result:before{
+  content: '';
+  left:-15px;
+  width: 10px;
+  height: 10px;
+  position: absolute;
+  background: green;
+}
+#blue_result:before{
+  content: '';
+  left:-15px;
+  width: 10px;
+  height: 10px;
+  position: absolute;
+  background: blue;
+}
+#alpha_result:before{
+  content: '';
+  left:-15px;
+  width: 10px;
+  height: 10px;
+  border: 1px solid black;
+  position: absolute;
+  background: white;
+}
+#combined_color{
+  margin-left: 20px;
+  border: 1px solid black;
+  display: inline-block;
+  width: 50px;
+  height: 50px;
+
+
+}
+
+
 
 #canvas_reader {
   width: 640px;

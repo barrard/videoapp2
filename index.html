@@ -44,10 +44,26 @@
     <div class="select">
       <label for="videoSource">Video source: </label><select id="videoSource"></select>
     </div>
-
+  
+    <div class="read_out">
+      <div class="all_results">
+        <div id="red_result"></div>
+        <div id="green_result"></div>
+        <div id="blue_result"></div>
+        <div id="alpha_result"></div>
+      </div>
+      <div id="combined_color"></div>
+    </div>
+  
     <canvas id='canvas_reader'></canvas>
-    <button onclick="stop_draw()">Stop</button>
-    <button onclick="restart_draw()">Restart</button>
+    <button onclick="stop_draw()">Stop Video</button>
+    <button onclick="restart_draw()">Restart Video</button>
+
+    <button onclick="stop_reader()">Stop Reader</button>
+    <button onclick="start_reader()">Restart Reader</button>
+<span id="label_interval"><input
+      type="text" name="reader_interval" id='reader_interval' value='500'
+    /></span>
 
     <video autoplay playsinline></video>
 

@@ -11,11 +11,20 @@
 var errorElement = document.querySelector('#errorMsg');
 var video = document.querySelector('video');
 var canvas, context;
-var draw_timeout;
+var draw_timeout, reader_interval;
+var box_top = 500
+var box_left = 400
+var box_width = 225
+var box_height = 300
 
 ///////////////
 var audioSelect = document.querySelector('select#audioSource');
 var videoSelect = document.querySelector('select#videoSource');
+var red_result = document.getElementById('red_result')
+var green_result = document.getElementById('green_result')
+var blue_result = document.getElementById('blue_result')
+var alpha_result = document.getElementById('alpha_result')
+var combined_color = document.getElementById('combined_color');
 
 document.addEventListener('DOMContentLoaded', function(){
     canvas = document.getElementById('canvas_reader');
@@ -40,10 +49,11 @@ function draw(v,c,w,h) {
     if(v.paused || v.ended) return false;
     c.drawImage(v,0,0,w,h);
     c.beginPath();
-    c.moveTo(375, 1000);
-    c.lineTo(375, 550);
-    c.lineTo(625, 550);
-    c.lineTo(625, 1000);
+    c.moveTo(box_left, box_top+box_height);
+    c.lineTo(box_left, box_top);
+    c.lineTo(box_left+box_width, box_top);
+    c.lineTo(box_left+box_width, box_top+box_height);
+    c.lineTo(box_left, box_top+box_height)
     c.lineWidth = 5;
     c.stroke();
     // c.fillStyle = "red";
@@ -57,6 +67,59 @@ function stop_draw(){
 
 function restart_draw(){
   draw(video,context,1000,1000);
+}
+
+function read_box(){
+  console.log('READ BOX START')
+  var imageData = context.getImageData(box_left, box_top, box_width, box_height);
+  var data = imageData.data
+  var red_array=[]
+  var green_array = []
+  var blue_array = []
+  var alpha_array = []
+  for(let x = 0; x<data.length; x+=4){
+    red_array.push(data[x]);
+    green_array.push(data[x+1]);
+    blue_array.push(data[x+2]);
+    alpha_array.push(data[x+3]);
+
+  }
+  var red = Math.floor(return_avg(red_array))
+  var green = Math.floor(return_avg(green_array))
+  var blue = Math.floor(return_avg(blue_array))
+  var alpha = Math.floor(return_avg(alpha_array))
+
+  console.log(red)
+  console.log(green)
+  console.log(blue)
+  console.log(alpha)
+  red_result.innerText = red;
+  green_result.innerText=green;
+  blue_result.innerText=blue;
+  alpha_result.innerText=alpha;
+  combined_color.style.background = "rgba("+red+", "+green+", "+blue+", "+alpha+")"
+  console.log('DONE READ BOX?')
+
+
+}
+
+function return_avg(arry){
+  var sum = 0;
+  for (let x = 0; x< arry.length; x++){
+    sum+=arry[x]
+  }
+  sum = sum/arry.length
+
+  return sum
+}
+
+function start_reader(){
+  var intervals = document.getElementById('reader_interval').value
+  reader_interval=setInterval(function(){ read_box() }, intervals)
+}
+
+function stop_reader(){
+  clearInterval(reader_interval)
 }
 
 navigator.mediaDevices.enumerateDevices()
