@@ -46,6 +46,8 @@
     </div>
   
     <div class="read_out">
+      <button id="stop_btn" onclick="stop_reader()">Pause Reader</button>
+      <button id="start_btn" onclick="start_reader()">Resume Reader</button>
       <div class="all_results">
         <div id="red_result"></div>
         <div id="green_result"></div>
@@ -56,16 +58,19 @@
     </div>
   
     <canvas id='canvas_reader'></canvas>
-    <button onclick="stop_draw()">Stop Video</button>
-    <button onclick="restart_draw()">Restart Video</button>
+    <div id="video_container">
+      <video autoplay playsinline></video>
+      <div id="reader_target"></div>
 
-    <button onclick="stop_reader()">Stop Reader</button>
-    <button onclick="start_reader()">Restart Reader</button>
+    </div>
+<!--     <button onclick="stop_draw()">Stop Video</button>
+    <button onclick="restart_draw()">Restart Video</button> -->
+
+
 <span id="label_interval"><input
       type="text" name="reader_interval" id='reader_interval' value='500'
     /></span>
 
-    <video autoplay playsinline></video>
 
     <div id="errorMsg"></div>
 

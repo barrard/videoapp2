@@ -12,10 +12,10 @@ var errorElement = document.querySelector('#errorMsg');
 var video = document.querySelector('video');
 var canvas, context;
 var draw_timeout, reader_interval;
-var box_top = 500
-var box_left = 400
-var box_width = 225
-var box_height = 300
+var box_top = 50
+var box_left = 75
+var box_width = 475
+var box_height = 375
 
 ///////////////
 var audioSelect = document.querySelector('select#audioSource');
@@ -25,8 +25,10 @@ var green_result = document.getElementById('green_result')
 var blue_result = document.getElementById('blue_result')
 var alpha_result = document.getElementById('alpha_result')
 var combined_color = document.getElementById('combined_color');
-var video_is_running = false;
-var reader_is_reading = false;
+var video_is_running = true;
+var reader_is_reading = true;
+var start_btn = document.getElementById('start_btn')
+var stop_btn = document.getElementById('stop_btn')
 
 
 document.addEventListener('DOMContentLoaded', function(){
@@ -35,8 +37,8 @@ document.addEventListener('DOMContentLoaded', function(){
 
     // var cw = Math.floor(canvas.clientWidth / 100);
     // var ch = Math.floor(canvas.clientHeight / 100);
-    var cw = 1000;
-    var ch = 1000;
+    var cw = 640;
+    var ch = 480;
     canvas.width = cw;
     canvas.height = ch;
 
@@ -44,6 +46,17 @@ document.addEventListener('DOMContentLoaded', function(){
 
     video.addEventListener('play', function(){
         draw(this,context,cw,ch);
+        read_box()
+        stop_btn.classList.remove('hide')
+        start_btn.classList.add('hide')
+
+    },false);
+
+    video.addEventListener('pause', function(){
+      stop_btn.classList.add('hide')
+      start_btn.classList.remove('hide')
+
+      clearInterval(draw_timeout)
     },false);
 
 },false);
@@ -64,15 +77,8 @@ function draw(v,c,w,h) {
     draw_timeout = setTimeout(draw,20,v,c,w,h);
 }
 
-function stop_draw(){
-  clearInterval(draw_timeout)
-}
-
-function restart_draw(){
-  draw(video,context,1000,1000);
-}
-
 function read_box(){
+  reader_is_reading = true
   console.log('READ BOX START')
   var imageData = context.getImageData(box_left, box_top, box_width, box_height);
   var data = imageData.data
@@ -118,6 +124,7 @@ function return_avg(arry){
 
 function start_reader(){
   console.log('start reader')
+  restart_draw()
   var intervals = document.getElementById('reader_interval').value
   reader_interval=setInterval(function(){ read_box() }, intervals)
 }
@@ -126,6 +133,16 @@ function stop_reader(){
   console.log('stop reader')
 
   clearInterval(reader_interval)
+  stop_draw()
+}
+
+function stop_draw(){
+  video.pause()
+}
+
+function restart_draw(){
+  video.play()
+  // draw(video,context,1000,1000);
 }
 
 navigator.mediaDevices.enumerateDevices()
