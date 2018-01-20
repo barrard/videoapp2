@@ -59,6 +59,7 @@ document.addEventListener('DOMContentLoaded', function(){
       clearInterval(draw_timeout)
     },false);
 
+    start_reader()
 },false);
 
 function draw(v,c,w,h) {
