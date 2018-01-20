@@ -266,10 +266,16 @@ input[name=reader_interval]{
     color: red;
 
 }
+#label_interval{
+  display: inline-block;
+  position: relative;
+}
 #label_interval::before{
   content: "Reading Speed (miliseconds)";
-  font-size: 14px;
+  font-size: 12px;
   position: absolute;
+  border: 1px solid red;
+  top: -1em;
 
 }
 

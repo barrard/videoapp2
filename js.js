@@ -25,6 +25,9 @@ var green_result = document.getElementById('green_result')
 var blue_result = document.getElementById('blue_result')
 var alpha_result = document.getElementById('alpha_result')
 var combined_color = document.getElementById('combined_color');
+var video_is_running = false;
+var reader_is_reading = false;
+
 
 document.addEventListener('DOMContentLoaded', function(){
     canvas = document.getElementById('canvas_reader');
@@ -114,11 +117,14 @@ function return_avg(arry){
 }
 
 function start_reader(){
+  console.log('start reader')
   var intervals = document.getElementById('reader_interval').value
   reader_interval=setInterval(function(){ read_box() }, intervals)
 }
 
 function stop_reader(){
+  console.log('stop reader')
+
   clearInterval(reader_interval)
 }
 
