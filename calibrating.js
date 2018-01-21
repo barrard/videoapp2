@@ -174,4 +174,35 @@ function set_test_select(select, test){
 
 
 
+Number.prototype.map = function (in_min, in_max, out_min, out_max) {
+  return (this - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
+}
 
+function crazy_mapper(r, g, b){
+
+  // 8 sets of 255 = 2040 total
+
+  //first 0 ,0 ,0 => 255, 0, 0
+  if(r <=255 && g == 0 && b == 0){
+    console.log(r.map(0, 255, 0, 2040))
+  //255 ,0 ,0 => 255, 255, 0
+  }else if (r == 255 && g <= 255 && b == 0){
+    console.log(r.map(0, 255, 0, 2040))
+
+  //255 ,255 ,0 => 0, 255, 0
+  }else if(r <=255 && g == 255 && b == 0){
+
+  //0 ,255 ,0 => 0, 255, 255
+  }else if(r == 0 && g == 255 && b<=255){
+
+  //0 ,255 ,255 => 0, 0, 255
+  }else if(r == 0 && g <=255 && b == 255){
+
+  //0 ,0 ,255 => 255, 0, 255
+  }else if(r <= 255 && g ==0 && b == 255){
+
+  //255, 0, 255 => 255, 255, 255
+  }else if(r == 255 && g <=255 && b == 255){
+
+  }
+}
