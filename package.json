@@ -1,0 +1,22 @@
+{
+  "name": "videoapp2",
+  "version": "1.0.0",
+  "description": "",
+  "main": "calibrating.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/barrard/videoapp2.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/barrard/videoapp2/issues"
+  },
+  "homepage": "https://github.com/barrard/videoapp2#readme",
+  "dependencies": {
+    "toastada": "^1.0.0"
+  }
+}

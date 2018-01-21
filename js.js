@@ -12,10 +12,10 @@ var errorElement = document.querySelector('#errorMsg');
 var video = document.querySelector('video');
 var canvas, context;
 var draw_timeout, reader_interval;
-var box_top = 50
-var box_left = 75
-var box_width = 475
-var box_height = 375
+var box_top = 150
+var box_left = 175
+var box_width = 75
+var box_height = 75
 
 ///////////////
 var audioSelect = document.querySelector('select#audioSource');
@@ -45,6 +45,7 @@ document.addEventListener('DOMContentLoaded', function(){
 
 
     video.addEventListener('play', function(){
+      video_is_running = true
         draw(this,context,cw,ch);
         read_box()
         stop_btn.classList.remove('hide')
@@ -55,11 +56,11 @@ document.addEventListener('DOMContentLoaded', function(){
     video.addEventListener('pause', function(){
       stop_btn.classList.add('hide')
       start_btn.classList.remove('hide')
-
+      video_is_running = false
       clearInterval(draw_timeout)
     },false);
 
-    start_reader()
+    // start_reader()
 },false);
 
 function draw(v,c,w,h) {
@@ -149,7 +150,7 @@ function restart_draw(){
 navigator.mediaDevices.enumerateDevices()
   .then(gotDevices).then(getStream).catch(handleError);
 
-audioSelect.onchange = getStream;
+// audioSelect.onchange = getStream;
 videoSelect.onchange = getStream;
 //////////////
 
@@ -169,9 +170,10 @@ function gotDevices(deviceInfos) {
     var option = document.createElement('option');
     option.value = deviceInfo.deviceId;
     if (deviceInfo.kind === 'audioinput') {
-      option.text = deviceInfo.label ||
-        'microphone ' + (audioSelect.length + 1);
-      audioSelect.appendChild(option);
+      // option.text = deviceInfo.label ||
+      //   'microphone ' + (audioSelect.length + 1);
+      // audioSelect.appendChild(option);
+      console.log('not using audio here')
     } else if (deviceInfo.kind === 'videoinput') {
       option.text = deviceInfo.label || 'camera ' +
         (videoSelect.length + 1);

@@ -25,7 +25,7 @@
   <!-- <link rel="icon" sizes="192x192" href="../../../images/webrtc-icon-192x192.png"> -->
   <link href="//fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet" type="text/css">
   <link rel="stylesheet" href="css.css">
-
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
 </head>
 
 <body>
@@ -37,15 +37,38 @@
     </div> -->
 
     <!-- <h1><a href="//webrtc.github.io/samples/" title="WebRTC samples homepage">WebRTC samples</a> <span>getUserMedia</span></h1> -->
-    <div class="select">
+<!--     <div class="select">
       <label for="audioSource">Audio source: </label><select id="audioSource"></select>
     </div>
-
+ -->
     <div class="select">
       <label for="videoSource">Video source: </label><select id="videoSource"></select>
     </div>
+    <div id="calibrate_setup_section">
+      <button id='calibrate_edit_btn'>Edit</button>
+      <p>Test List</p>
+      <h5 id="current_test_name"></h5>
+      <select id="test_list" placeholder="select">
+        <option value="start">Select Test</option>
+      </select>
+
+      <button id="add_new_test_btn">Add New Test</button>
+      <input id="new_test_name" type="text" name="new_test"/>
+      <div id="cal_curve_section">
+        <span id="std_deviation_canvas_span"><canvas id='std_deviation_canvas'></canvas></span>
+        <table id='cal_table'>
+          <tr>
+              <th id="vertical_line">Value</th>
+              <th>reading</th>
+          </tr>
+
+        </table>
+        <button id="add_calibration_point_btn">Add Calibration Point</button>
+      </div>
+    </div>
   
     <div class="read_out">
+
       <button id="stop_btn" onclick="stop_reader()">Pause Reader</button>
       <button id="start_btn" onclick="start_reader()">Resume Reader</button>
       <div class="all_results">
@@ -55,6 +78,9 @@
         <div id="alpha_result"></div>
       </div>
       <div id="combined_color"></div>
+      <span id="label_interval"><input
+            type="text" name="reader_interval" id='reader_interval' value='500'
+          /></span>
     </div>
   
     <canvas id='canvas_reader'></canvas>
@@ -67,9 +93,7 @@
     <button onclick="restart_draw()">Restart Video</button> -->
 
 
-<span id="label_interval"><input
-      type="text" name="reader_interval" id='reader_interval' value='500'
-    /></span>
+
 
 
     <div id="errorMsg"></div>
@@ -80,6 +104,9 @@
   <!-- <script src="https://webrtc.github.io/adapter/adapter-latest.js"></script> -->
   <!-- <script src="../../../js/common.js"></script> -->
   <script src="js.js"></script>
+  <script src="calibrating.js"></script>
+  <script src="global.js"></script>
+  <script src="node_modules/toastada/index.js"></script>
 
   <!-- <script src="../../../js/lib/ga.js"></script> -->
 
