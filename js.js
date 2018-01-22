@@ -12,10 +12,7 @@ var errorElement = document.querySelector('#errorMsg');
 var video = document.querySelector('video');
 var canvas, context;
 var draw_timeout, reader_interval;
-var box_top = 150
-var box_left = 175
-var box_width = 75
-var box_height = 75
+
 
 ///////////////
 var audioSelect = document.querySelector('select#audioSource');
@@ -47,7 +44,7 @@ document.addEventListener('DOMContentLoaded', function(){
     video.addEventListener('play', function(){
       video_is_running = true
         draw(this,context,cw,ch);
-        read_box()
+        read_box(cw, ch)
         stop_btn.classList.remove('hide')
         start_btn.classList.add('hide')
 
@@ -63,15 +60,34 @@ document.addEventListener('DOMContentLoaded', function(){
     // start_reader()
 },false);
 
+var box_top
+var box_left
+var box_width
+var box_height
+var reader_target = document.getElementById('reader_target')
+
+
+function setup_reader_target(){
+  console.log('set the box')
+  box_top = document.querySelector('input[name=box_top]').value/100 //.30//150 of 480
+  box_left = document.querySelector('input[name=box_left]').value/100//.30//175 of 640
+  box_width = document.querySelector('input[name=box_width]').value/100//.11//75 of 640
+  box_height = document.querySelector('input[name=box_height]').value/100//.15//75 of 480
+  reader_target.style.top = (box_top*100)+'%'
+  reader_target.style.left = (box_left*100)+'%'
+  reader_target.style.width = (box_width*100)+'%'
+  reader_target.style.height = (box_height*100)+'%'
+}
+setup_reader_target()
 function draw(v,c,w,h) {
     if(v.paused || v.ended) return false;
     c.drawImage(v,0,0,w,h);
     c.beginPath();
-    c.moveTo(box_left, box_top+box_height);
-    c.lineTo(box_left, box_top);
-    c.lineTo(box_left+box_width, box_top);
-    c.lineTo(box_left+box_width, box_top+box_height);
-    c.lineTo(box_left, box_top+box_height)
+    c.moveTo((box_left*w), (box_top*h)+(box_height*h));
+    c.lineTo((box_left*w), (box_top*h));
+    c.lineTo((box_left*w)+(box_width*w), (box_top*h));
+    c.lineTo((box_left*w)+(box_width*w), (box_top*h)+(box_height*h));
+    c.lineTo((box_left*w), (box_top*h)+(box_height*h))
     c.lineWidth = 5;
     c.stroke();
     // c.fillStyle = "red";
@@ -79,10 +95,17 @@ function draw(v,c,w,h) {
     draw_timeout = setTimeout(draw,20,v,c,w,h);
 }
 
-function read_box(){
+function read_box(w, h){
   reader_is_reading = true
   console.log('READ BOX START')
-  var imageData = context.getImageData(box_left, box_top, box_width, box_height);
+  console.log(h)
+  console.log(w)
+  console.log(box_height)
+  console.log(box_left*w)
+  console.log(box_top*h) 
+  console.log(box_width*w)
+  console.log(box_height*h)
+  var imageData = context.getImageData((box_left*w), (box_top*h), (box_width*w), (box_height*h));
   var data = imageData.data
   var red_array=[]
   var green_array = []
@@ -128,7 +151,7 @@ function start_reader(){
   console.log('start reader')
   restart_draw()
   var intervals = document.getElementById('reader_interval').value
-  reader_interval=setInterval(function(){ read_box() }, intervals)
+  reader_interval=setInterval(function(){ read_box(canvas.width, canvas.height) }, intervals)
 }
 
 function stop_reader(){

@@ -53,47 +53,85 @@ function add_test_to_list(name, value, flag){
   if(flag !== false) set_test_select(test_list_select, name)
 }
 
-function populate_data_table(data){
-  for(let k in data){
-    var tr = document.createElement('tr')
-    var td1 = document.createElement('td')
-    var td2 = document.createElement('td')
-    var span1 = document.createElement('span')
-    var span2 = document.createElement('span')
-    var span3 = document.createElement('span')
-    span1.classList.add('red')
-    span2.classList.add('green')
-    span3.classList.add('blue')
+function reset_table(table){
+  var x = table.children.length
 
-    span1.innerText=data[k][0]
-    span2.innerText=data[k][1]
-    span3.innerText=data[k][2]
-    td1.innerText=k
-    td2.appendChild(span1)
-    td2.appendChild(span2)
-    td2.appendChild(span3)
-    tr.appendChild(td1)
-    tr.appendChild(td2)
-    cal_table.appendChild(tr)
+  while(x>1){
+    cal_table.removeChild(cal_table.children[x-1])
+    x = table.children.length
+
   }
+
+
+}
+
+var table_rows_array = []
+function make_table_row(k, data){
+  let tr = document.createElement('tr')
+  let td1 = document.createElement('td')
+  let td2 = document.createElement('td')
+  let span1 = document.createElement('span')
+  let span2 = document.createElement('span')
+  let span3 = document.createElement('span')
+  span1.classList.add('red')
+  span2.classList.add('green')
+  span3.classList.add('blue')
+
+  span1.innerText=data[k][0]
+  span2.innerText=data[k][1]
+  span3.innerText=data[k][2]
+  td1.innerText=k
+  td2.appendChild(span1)
+  td2.appendChild(span2)
+  td2.appendChild(span3)
+  tr.appendChild(td1)
+  tr.appendChild(td2)
+  table_rows_array.push(tr)
+}
+function populate_data_table(data, test){
+  console.log('populate chart with one or more?')
+  console.log(Object.keys(data).length)
+  if(Object.keys(data).length == 0){
+    console.log('No data points')
+    table_rows_array.length=0
+    reset_table(cal_table)
+    toastada.warning('No data saved for '+test+'.  Try adding some calibration points')
+    handle_animation(add_calibration_point_btn, 'shake')
+    
+  }else if(Object.keys(data).length == 1) {
+    console.log('just append one here')
+    for(let k in data){
+      make_table_row(k, data)
+    }
+
+  }else{
+
+      table_rows_array.length=0
+      reset_table(cal_table)
+
+    for(let k in data){
+      make_table_row(k, data)
+    }
+
+  }
+  console.log(table_rows_array)
+  table_rows_array.forEach((i)=>{
+    cal_table.append(i)
+  })
+  // cal_table.appendChild(table_rows_array)
+
 
 }
 
 
 
 function get_test_data(test){
-  if(test ==="start") return
+  if(test ==="start") return //hacky just to avoid running if in preset start mode
   console.log(test)
   var data_points = cal_data[test]
-  if(Object.keys(data_points).length == 0){
-    console.log('No data points')
-    toastada.warning('No data saved for '+test+'.  Try adding some calibration points')
-    handle_animation(add_calibration_point_btn, 'shake')
-    
-  }else{
-    console.log(data_points)
-    populate_data_table(data_points)
-  }
+  populate_data_table(data_points, test)
+
+
 }
 
 add_calibration_point_btn.addEventListener('click', ()=>{
@@ -105,10 +143,14 @@ add_calibration_point_btn.addEventListener('click', ()=>{
   console.log('stop and take a measurement')
   stop_reader()  
   var colors = [red_result.innerText, green_result.innerText, blue_result.innerText]
-  var val = prompt('please enter a value for last reading')
+  let val = prompt('please enter a value for last reading')
   if(val.trim() == '' || val.trim() === null || val.trim() === undefined ) return
+  // TODO combine these two save functions into one
   cal_data[current_test_name.innerText][val]= colors
   save('calibration_data', sfy(cal_data))
+  //TODO possibly add the render function in the save
+  console.log('show me what val is saved '+val)
+  populate_data_table({[val]:colors}, current_test_name.innerText)
 })
 
 calibrate_edit_btn.addEventListener('click', ()=>{

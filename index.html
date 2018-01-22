@@ -56,15 +56,16 @@
       <input id="new_test_name" type="text" name="new_test"/>
       <div id="cal_curve_section">
         <span id="std_deviation_canvas_span"><canvas id='std_deviation_canvas'></canvas></span>
-        <table id='cal_table'>
-          <tr>
-              <th id="vertical_line">Value</th>
-              <th>reading</th>
-          </tr>
 
-        </table>
-        <button id="add_calibration_point_btn">Add Calibration Point</button>
       </div>
+      <table id='cal_table'>
+        <tr>
+            <th id="vertical_line">Value</th>
+            <th>reading</th>
+        </tr>
+
+      </table>
+      <button id="add_calibration_point_btn">Add Calibration Point</button>
     </div>
   
     <div class="read_out">
@@ -81,6 +82,29 @@
       <span id="label_interval"><input
             type="text" name="reader_interval" id='reader_interval' value='500'
           /></span>
+          <ul id="box_dimentions_list">
+            <h4>Reader Box settings</h4>
+            <li>Top<input oninput="setup_reader_target()" 
+              type="number"
+              name="box_top"
+              value="30" 
+            />%</li>
+            <li>Left<input oninput="setup_reader_target()" 
+              type="number"
+              name="box_left"
+              value="30" 
+            />%</li>
+            <li>Height<input oninput="setup_reader_target()" 
+              type="number"
+              name="box_height"
+              value="10" 
+            />%</li>
+            <li>Width<input oninput="setup_reader_target()" 
+              type="number"
+              name="box_width"
+              value="10" 
+            />%</li>
+          </ul>
     </div>
   
     <canvas id='canvas_reader'></canvas>

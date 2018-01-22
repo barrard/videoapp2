@@ -370,7 +370,7 @@ tr:nth-of-type(2n){
 }
 
 #canvas_reader {
-  /*display: none;*/
+  display: none;
 /*  width: 640px;
   height: 480px;*/
   /*width: 100%;*/
@@ -407,7 +407,8 @@ tr:nth-of-type(2n){
   display: inline;
   position: absolute;
   top: 0px;
-  margin:5px;
+  right:0px;
+  margin:0px;
 }
 
 #add_calibration_point_btn{
@@ -443,7 +444,7 @@ tr:nth-of-type(2n){
 
 #calibrate_edit_btn{
   position: absolute;
-  top:0;
+  top:-2.5em;
   right: 1em;
   background: rgba(0,50,250,.9);
 }
@@ -459,6 +460,27 @@ tr:nth-of-type(2n){
   margin-left: 1px; 
 }
 
+
+#box_dimentions_list{
+  list-style: none;
+  margin-left: -2em;
+  font-size: 12px;
+}
+#box_dimentions_list > li{
+  display: inline;
+  margin: 5px 0px 0px 0px;
+}
+
+#box_dimentions_list >li>input{
+  width: 2.5em;
+  margin: 0 0px 0 5px;
+  border: none;
+  background: linear-gradient(
+    to right,
+    rgb(222, 222, 222),
+    rgb(99, 99, 99)
+    );
+}
 
 /* toasada */
 
