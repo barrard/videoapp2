@@ -5,6 +5,9 @@ app.use(express.static('public'));
 
 const port = 3005
 
-app.get('/', (req, res) => res.sendFile('index.html'))
+app.get('/', (req, res) => {
+  console.log('User his hte page')
+  res.sendFile('index.html')
+})
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))
