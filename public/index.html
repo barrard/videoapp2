@@ -1,28 +1,12 @@
 <!DOCTYPE html>
-<!--
- *  Copyright (c) 2015 The WebRTC project authors. All Rights Reserved.
- *
- *  Use of this source code is governed by a BSD-style license
- *  that can be found in the LICENSE file in the root of the source
- *  tree.
--->
+
 <html>
 <head>
 
-<!--   <meta charset="utf-8">
-  <meta name="description" content="WebRTC code samples">
-  <meta name="viewport" content="width=device-width, user-scalable=yes, initial-scale=1, maximum-scale=1">
-  <meta itemprop="description" content="Client-side WebRTC code samples">
-  <meta itemprop="image" content="../../../images/webrtc-icon-192x192.png">
-  <meta itemprop="name" content="WebRTC code samples">
-  <meta name="mobile-web-app-capable" content="yes">
-  <meta id="theme-color" name="theme-color" content="#ffffff">
 
-  <base target="_blank"> -->
 
   <title>getUserMedia</title>
 
-  <!-- <link rel="icon" sizes="192x192" href="../../../images/webrtc-icon-192x192.png"> -->
   <link href="//fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet" type="text/css">
   <link rel="stylesheet" href="css.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
@@ -32,15 +16,6 @@
 
   <div id="container">
 
-<!--     <div class="highlight">
-      <p>New codelab: <a href="https://codelabs.developers.google.com/codelabs/webrtc-web">Realtime communication with WebRTC</a></p>
-    </div> -->
-
-    <!-- <h1><a href="//webrtc.github.io/samples/" title="WebRTC samples homepage">WebRTC samples</a> <span>getUserMedia</span></h1> -->
-<!--     <div class="select">
-      <label for="audioSource">Audio source: </label><select id="audioSource"></select>
-    </div>
- -->
     <div class="select">
       <label for="videoSource">Video source: </label><select id="videoSource"></select>
     </div>
@@ -67,7 +42,7 @@
       </table>
       <button id="add_calibration_point_btn">Add Calibration Point</button>
     </div>
-  
+
     <div class="read_out">
 
       <button id="stop_btn" onclick="stop_reader()">Pause Reader</button>
@@ -84,29 +59,29 @@
           /></span>
           <ul id="box_dimentions_list">
             <h4>Reader Box settings</h4>
-            <li>Top<input oninput="setup_reader_target()" 
+            <li>Top<input oninput="setup_reader_target()"
               type="number"
               name="box_top"
-              value="30" 
+              value="30"
             />%</li>
-            <li>Left<input oninput="setup_reader_target()" 
+            <li>Left<input oninput="setup_reader_target()"
               type="number"
               name="box_left"
-              value="30" 
+              value="30"
             />%</li>
-            <li>Height<input oninput="setup_reader_target()" 
+            <li>Height<input oninput="setup_reader_target()"
               type="number"
               name="box_height"
-              value="10" 
+              value="10"
             />%</li>
-            <li>Width<input oninput="setup_reader_target()" 
+            <li>Width<input oninput="setup_reader_target()"
               type="number"
               name="box_width"
-              value="10" 
+              value="10"
             />%</li>
           </ul>
     </div>
-  
+    <input type="file" accept="video/*" capture>
     <canvas id='canvas_reader'></canvas>
     <div id="video_container">
       <video autoplay playsinline></video>
@@ -124,15 +99,10 @@
 
 
   </div>
-
-  <!-- <script src="https://webrtc.github.io/adapter/adapter-latest.js"></script> -->
-  <!-- <script src="../../../js/common.js"></script> -->
   <script src="js.js"></script>
   <script src="calibrating.js"></script>
   <script src="global.js"></script>
   <script src="node_modules/toastada/index.js"></script>
-
-  <!-- <script src="../../../js/lib/ga.js"></script> -->
 
 </body>
 </html>
