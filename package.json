@@ -17,7 +17,7 @@
   },
   "homepage": "https://github.com/barrard/videoapp2#readme",
   "dependencies": {
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "toastada": "^1.0.0"
   }
 }
